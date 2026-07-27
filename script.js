@@ -38,6 +38,9 @@ function showScores() {
 		return;
 	}
 
+	// sort score in descending order
+	scoreList.sort((a, b) => b.score - a.score);
+
 	let table = `
 		<table border="1">
 			<tr>
