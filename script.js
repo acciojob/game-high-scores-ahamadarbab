@@ -8,7 +8,10 @@ function saveScore() {
 
 	const name = nameInput.value.trim();
 	const score = Number(scoreInput.value);
-	
+
+	if(name === "" || isNaN(score)) {
+		return;
+	}
 
 	let scoreList = JSON.parse(localStorage.getItem("scores")) || [];
 
@@ -17,7 +20,7 @@ function saveScore() {
 	// sort score in descending order
 	scoreList.sort((a, b) => b.score - a.score);
 
-	localStorage.setItem("scoreList", JSON.stringify(scoreList));
+	localStorage.setItem("scores", JSON.stringify(scoreList));
 
 	nameInput.value = "";
 	scoreInput.value = "";
