@@ -5,19 +5,19 @@ const scores = document.getElementById("scores");
 
 // Save score to Local Storage
 function saveScore() {
-  // complete the code here
 
 	const name = nameInput.value.trim();
-	const score = scoreInput.value.trim();
+	const score = Number(scoreInput.value);
+	
 
-	let highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+	let scoreList = JSON.parse(localStorage.getItem("scores")) || [];
 
-	highScores.push({
-		name: name,
-		score: score
-	});
+	scoreList.push({ name, score });
 
-	localStorage.setItem("highScores", JSON.stringify(highScores));
+	// sort score in descending order
+	scoreList.sort((a, b) => b.score - a.score);
+
+	localStorage.setItem("scoreList", JSON.stringify(scoreList));
 
 	nameInput.value = "";
 	scoreInput.value = "";
@@ -27,11 +27,10 @@ function saveScore() {
 
 // Show scores in div
 function showScores() {
-  // complete the code
 
-	const highScores = JSON.parse(localStorage.getItem("highScores")) || [];
+	const scoreList = JSON.parse(localStorage.getItem("scores")) || [];
 
-	if(highScores.length === 0) {
+	if(scoreList.length === 0) {
 		scores.innerHTML = "No scores yet";
 		return;
 	}
@@ -44,7 +43,7 @@ function showScores() {
 			</tr>
 	`;
 
-	highScores.forEach((item) => {
+	scoreList.forEach((item) => {
 		table += `
 			<tr>
 				<td>${item.name}</td>
